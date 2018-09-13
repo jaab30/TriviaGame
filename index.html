@@ -1,0 +1,197 @@
+<!doctype <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trivia Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Added link to the jQuery Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- reset css -->
+        <!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css" /> -->
+        <!-- Added a link to Bootstrap-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <!-- link to font -->
+       
+        <!-- link to css -->
+        <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+
+
+</head>
+
+<body>
+    <header class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 align-items-center">
+                    <h1> Seinfeld Trivial Game</h1>
+                    <img src="assets/images/logo_300.png" alt="Seinfeld Logo" class="logo">
+            </div>
+        </div>
+    </header>
+    <main class="container-fluid">
+        <div class="row">
+                    <div id="timer" class="col-sm-12"></div>
+        </div>
+        <div class="row">
+                <div class="col-sm-3 mr-2">
+                </div>
+                <div id="prompt" class="col-sm-8" value="0">
+                    <ol id="qElements">
+                        <h2 id="question"></h2>
+                        
+                        <button id="a1" class="button" value=1></button><br>
+                        <button id="a2" class="button"value=2></button><br>
+                        <button id="a3" class="button"value=3></button><br>
+                        <button id="a4" class="button"value=3></button>
+
+                    </ol>
+                    
+                </div>
+                <div class="col-sm-2 test">
+                </div>
+               
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                    
+            </div>
+        </div>
+        
+
+        </div>
+    </main>
+   
+    <script>
+    $(document).ready(function() {
+
+        //set up all vars and objects
+        var questions = [ q1={
+                            "question":"What is My Name..?",
+                            "answer1":"Jorge Alvarez",
+                            "answer2":"Pedro Perez",
+                            "answer3":"Carlos Rodriguez",
+                            "answer4":"John Smith",
+                            "correct": "1"
+                            } ,
+                            q2={
+                            "question":"What is Your Name...?",
+                            "answer1":"Jorge Alvarez",
+                            "answer2":"Pedro Perez",
+                            "answer3":"Carlos Rodriguez",
+                            "answer4":"John Smith",
+                            "correct": "3"
+                            }   
+                        ]
+
+        var correctAnswers = 0,
+            time = 10,
+            timeBetween = 2,
+            interval,
+            intervalBetween,
+            i = 0;
+            // j = $("#qElements").detach();
+
+// display question by grabbing ID from HTML
+function setQuestions (x){
+        $("#question").text(questions[x].question);
+        $("#a1").text(questions[x].answer1);
+        $("#a2").text(questions[x].answer2);
+        $("#a3").text(questions[x].answer3);
+        $("#a4").text(questions[x].answer4);
+        }
+function setQuestions2 (x){
+        $("#prompt").empty();
+        $("#prompt").prepend(j);
+        $("#question").text(questions[x].question);
+        $("#a1").text(questions[x].answer1);
+        $("#a2").text(questions[x].answer2);
+        $("#a3").text(questions[x].answer3);
+        $("#a4").text(questions[x].answer4);
+        }
+//set up the timer
+        function questionTime(){
+            interval = setInterval(decrement, 1000);
+            }
+            function decrement() {
+            time--;
+            $("#timer").text("Time Remaining: " + time);
+
+            if (time === 0) {
+                stop();
+                $("#prompt").html("<h2> Correct..!</h2><p>The correct answer is:" + questions[i].correct + "</p><img src='assets/images/logo_300.png'/>")
+                
+            }
+        }
+        function stop() {
+            clearInterval(interval);
+        }
+
+//set up the timer between questions
+function intervalTime(){
+            intervalBetween = setInterval(decrementBetween, 1000);
+            }
+            function decrementBetween() {
+            timeBetween--;
+            
+            if (timeBetween === 0) {
+                stopBetween();
+                i++
+                setQuestions2(i);
+                time = 10;
+                questionTime()
+            }
+            
+        }
+        function stopBetween() {
+            clearInterval(intervalBetween);
+            
+        }
+
+// on click, if user pick is equal than correct answer, write meassage and show pix
+        $(".button").on("click", function(){
+            j = $("#qElements").detach()  
+            if ($(this).attr("value") === questions[i].correct){
+            $("#prompt").html("<p> Correct..!</p><img src='assets/images/logo_300.png'/>")
+            stop();
+            correctAnswers++
+            intervalTime();
+            
+
+            }
+            
+            });
+
+// on click, if user pick is not equal than correct answer, write meassage, write correct answer and show pix
+
+// if timer rusn out, write meassage, write correct answer and show pix
+
+//at the end, show results , show button to restart.
+
+//when restart at th end, go back to question 1 without refresh.
+
+
+
+            
+
+
+
+
+
+
+
+
+setQuestions (i)
+questionTime()
+// intervalTime()
+
+})
+   
+    </script>
+
+    <!-- bootstrap code -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>
