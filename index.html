@@ -41,14 +41,15 @@
                         <h2 id="question"></h2>
                         
                         <button id="a1" class="button" value=1></button><br>
-                        <button id="a2" class="button"value=2></button><br>
-                        <button id="a3" class="button"value=3></button><br>
-                        <button id="a4" class="button"value=3></button>
+                        <button id="a2" class="button" value=2></button><br>
+                        <button id="a3" class="button" value=3></button><br>
+                        <button id="a4" class="button" value=4></button>
 
                     </ol>
                     
                 </div>
                 <div class="col-sm-2 test">
+                    <!-- <button id="start"> Start Bame</button> -->
                 </div>
                
         </div>
@@ -67,47 +68,143 @@
 
         //set up all vars and objects
         var questions = [ q1={
-                            "question":"What is My Name..?",
-                            "answer1":"Jorge Alvarez",
-                            "answer2":"Pedro Perez",
-                            "answer3":"Carlos Rodriguez",
-                            "answer4":"John Smith",
-                            "correct": "1"
-                            } ,
-                            q2={
-                            "question":"What is Your Name...?",
-                            "answer1":"Jorge Alvarez",
-                            "answer2":"Pedro Perez",
-                            "answer3":"Carlos Rodriguez",
-                            "answer4":"John Smith",
-                            "correct": "3"
-                            }   
+                            "question":"What is Kramer's first name ?",
+                            "answer1":"Joe",
+                            "answer2":"Frank",
+                            "answer3":"Cosmo",
+                            "answer4":"John",
+                            "correct": "3",
+                            "correctText":"Cosmo",
+                            "image":"assets/images/kramer_hit.gif"
+                            },
+                          q2={
+                            "question":"Where do Jerry's parents live ?",
+                            "answer1":"Queens",
+                            "answer2":"Florida",
+                            "answer3":"New Jersey",
+                            "answer4":"Brooklyn",
+                            "correct": "2",
+                            "correctText":"Florida",
+                            "image":"assets/images/elaine_dance.gif"
+                            },
+                          q3={
+                            "question":"What causes George's fiancé Susan to die ?",
+                            "answer1":"Suicide",
+                            "answer2":"Cheap Wedding Invitations",
+                            "answer3":"Allergic reaction",
+                            "answer4":"Nobody knows",
+                            "correct": "2",
+                            "correctText":"Cheap Wedding Invitations",
+                            "image":"assets/images/jerry_clap.gif"
+                            } , 
+                          q4={
+                            "question":"What does Kramer have installed in his shower ?",
+                            "answer1":"A Television",
+                            "answer2":"A Radio",
+                            "answer3":"A Garbage Disposal",
+                            "answer4":"A Toilet",
+                            "correct": "3",
+                            "correctText":"A Garbage Disposal",
+                            "image":"assets/images/kramer_newman.gif"
+                            }, 
+                          q5={
+                            "question":"What was 'Little Jerry' ?",
+                            "answer1":"Kramer's pet rooster",
+                            "answer2":"Kramer's pet chicken",
+                            "answer3":"A picture of Jerry as a little kid",
+                            "answer4":"None of the above",
+                            "correct": "1",
+                            "correctText":"Kramer's Pet Rooster",
+                            "image":"assets/images/little_jerry.gif"
+                            },
+                          q6={
+                            "question":"What in almost every episode is found on a shelf in Jerry's apartment ?",
+                            "answer1":"A pile of books *gasp* books",
+                            "answer2":"A superman figurine",
+                            "answer3":"A can of Coke",
+                            "answer4":"A bottle of Snapple",
+                            "correct": "2",
+                            "correctText":"A Superman Figurine",
+                            "image":"assets/images/marathon.gif"
+                            },
+                          q7={
+                            "question":"What does Elaine buy allot of for Mr Pitt but doesn't get the right kind of it ?",
+                            "answer1":"Coffee",
+                            "answer2":"Hats",
+                            "answer3":"Juice",
+                            "answer4":"Socks",
+                            "correct": "4",
+                            "correctText":"Socks",
+                            "image":"assets/images/jerry_elaine.gif"
+                            },
+                          q8={
+                            "question":"In The Bubble boy what game do George and the Bubble boy fight about ?",
+                            "answer1":"Monopoly",
+                            "answer2":"Uno",
+                            "answer3":"Trivial Pursuit",
+                            "answer4":"Go Fish",
+                            "correct": "3",
+                            "correctText":"Trivial Pursuit",
+                            "image":"assets/images/seinfeld_shot.gif"
+                            },
+                          q9={
+                            "question":"What kind of pasta does Kramer make a Jerry figurine from ? ?",
+                            "answer1":"Fusilli",
+                            "answer2":"Penne",
+                            "answer3":"Tortellini",
+                            "answer4":"Angel Hair",
+                            "correct": "1",
+                            "correctText":"Fusilli 'Jerry'",
+                            "image":"assets/images/george.gif"
+                            },
+                          q10={
+                            "question":"What does Kramer do for a living ?",
+                            "answer1":"mailman",
+                            "answer2":"banker",
+                            "answer3":"no one really knows",
+                            "answer4":"comedian",
+                            "correct": "3",
+                            "correctText":"No One Really Knows",
+                            "image":"assets/images/all.gif"
+                            }
                         ]
 
+
         var correctAnswers = 0,
+            incorrectAnswers = 0,
             time = 10,
-            timeBetween = 2,
+            timeBetween = 3,
             interval,
             intervalBetween,
             i = 0;
-            // j = $("#qElements").detach();
+
+        // j = $("#qElements").detach() 
+        // $("#prompt").html("<button id='start'>Start Game</button>");
+        
+        // $("#start").on("click", function(){
+        //     setQuestions()
+            // questionTime()
+            // alert(setNextQuestions())
+        // })
 
 // display question by grabbing ID from HTML
-function setQuestions (x){
-        $("#question").text(questions[x].question);
-        $("#a1").text(questions[x].answer1);
-        $("#a2").text(questions[x].answer2);
-        $("#a3").text(questions[x].answer3);
-        $("#a4").text(questions[x].answer4);
+function setQuestions (){
+        // $(".test").empty();
+        // $("#prompt").append(j);    
+        $("#question").text(questions[i].question);
+        $("#a1").text(questions[i].answer1);
+        $("#a2").text(questions[i].answer2);
+        $("#a3").text(questions[i].answer3);
+        $("#a4").text(questions[i].answer4);
         }
-function setQuestions2 (x){
+function setNextQuestions(){
         $("#prompt").empty();
         $("#prompt").prepend(j);
-        $("#question").text(questions[x].question);
-        $("#a1").text(questions[x].answer1);
-        $("#a2").text(questions[x].answer2);
-        $("#a3").text(questions[x].answer3);
-        $("#a4").text(questions[x].answer4);
+        $("#question").text(questions[i].question);
+        $("#a1").text(questions[i].answer1);
+        $("#a2").text(questions[i].answer2);
+        $("#a3").text(questions[i].answer3);
+        $("#a4").text(questions[i].answer4);
         }
 //set up the timer
         function questionTime(){
@@ -119,9 +216,13 @@ function setQuestions2 (x){
 
             if (time === 0) {
                 stop();
-                $("#prompt").html("<h2> Correct..!</h2><p>The correct answer is:" + questions[i].correct + "</p><img src='assets/images/logo_300.png'/>")
-                
+                j = $("#qElements").detach()
+                $("#prompt").html("<h2> Time's Out..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src= " + questions[i].image + " />")
+                $("#timer").text("Time Remaining: ");
+                incorrectAnswers++
+                intervalTime();
             }
+            
         }
         function stop() {
             clearInterval(interval);
@@ -137,29 +238,51 @@ function intervalTime(){
             if (timeBetween === 0) {
                 stopBetween();
                 i++
-                setQuestions2(i);
                 time = 10;
+                timeBetween = 3;
+                setNextQuestions();
                 questionTime()
+                console.log(i)
             }
             
         }
         function stopBetween() {
             clearInterval(intervalBetween);
-            
+        }
+
+        function finalQuestion() {
+            if ($(this).attr("value") === questions[i].correct){
+                correctAnswers++}
+            $("#prompt").html("<h2> Game Over..!</h2><h2>Correct Answers:" + correctAnswers +"</h2><h2>Incorrect Answers:" + incorrectAnswers +"</h2><img src= " + questions[i].image + " style='width:450px;height:300px;'/>");
+                stopBetween()
+                stop()
         }
 
 // on click, if user pick is equal than correct answer, write meassage and show pix
         $(".button").on("click", function(){
-            j = $("#qElements").detach()  
+            j = $("#qElements").detach()
             if ($(this).attr("value") === questions[i].correct){
-            $("#prompt").html("<p> Correct..!</p><img src='assets/images/logo_300.png'/>")
-            stop();
-            correctAnswers++
-            intervalTime();
-            
-
+                $("#prompt").html("<p> Correct..!</p><img src= " + questions[i].image + " style='width:450px;height:300px;'/>")
+                stop();
+                correctAnswers++
+                $("#timer").text("Time Remaining: ");
+                intervalTime()
+                if (i === 9){
+                    finalQuestion()
+                } 
             }
-            
+ 
+            else {
+                $("#prompt").html("<h2> No Soup for you..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src= " + questions[i].image + " style='width:450px;height:300px;'/>")
+                stop();
+                incorrectAnswers++
+                $("#timer").text("Time Remaining: ");
+                intervalTime();
+                if (i === 9){
+                    finalQuestion()
+                } 
+            }
+           
             });
 
 // on click, if user pick is not equal than correct answer, write meassage, write correct answer and show pix
@@ -172,16 +295,8 @@ function intervalTime(){
 
 
 
-            
-
-
-
-
-
-
-
-
-setQuestions (i)
+// startGame()
+setQuestions ()
 questionTime()
 // intervalTime()
 
