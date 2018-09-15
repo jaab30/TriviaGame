@@ -9,11 +9,11 @@
         <!-- Added link to the jQuery Library -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- reset css -->
-        <!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css" /> -->
+        <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
         <!-- Added a link to Bootstrap-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <!-- link to font -->
-       
+        <link href="https://fonts.googleapis.com/css?family=Peralta|Vollkorn:400,600,700,900|Mukta:400,500,600,700,800|Oswald:300,400,500,600,700" rel="stylesheet">
         <!-- link to css -->
         <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
 
@@ -25,33 +25,36 @@
         <div class="row">
             <div class="col-sm-12 align-items-center">
                     <h1> Seinfeld Trivial Game</h1>
-                    <img src="assets/images/logo_300.png" alt="Seinfeld Logo" class="logo">
+                    <img class = "logo" src="assets/images/logo_300.png" alt="Seinfeld Logo" class="logo">
             </div>
         </div>
     </header>
     <main class="container-fluid">
+        
         <div class="row">
-                    <div id="timer" class="col-sm-12"></div>
-        </div>
-        <div class="row">
-                <div class="col-sm-3 mr-2">
+            
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8 mainContainer">
+                <div class="row">
+                            <div id="timer" class="col-sm-12"></div>
                 </div>
-                <div id="prompt" class="col-sm-8" value="0">
-                    <ol id="qElements">
-                        <h2 id="question"></h2>
-                        
-                        <button id="a1" class="response" value=1></button><br>
-                        <button id="a2" class="response" value=2></button><br>
-                        <button id="a3" class="response" value=3></button><br>
-                        <button id="a4" class="response" value=4></button>
+                <div class="row insideContainer mt-4">
+                    <div id="prompt" class="col-sm-12" value="0">
+                        <ol id="qElements">
+                            <h2 id="question"></h2>
+                            <button id="a1" class="response" value=1></button><br>
+                            <button id="a2" class="response" value=2></button><br>
+                            <button id="a3" class="response" value=3></button><br>
+                            <button id="a4" class="response" value=4></button>
 
-                    </ol>
-                    
+                        </ol>
+                    </div>
+                
                 </div>
-                <div class="col-sm-2 test">
-                    <!-- <button id="start"> Start Bame</button> -->
-                </div>
-               
+            </div>
+            <div class="col-sm-2">
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -148,7 +151,7 @@
                             "image":"assets/images/seinfeld_shot.gif"
                             },
                           q9={
-                            "question":"What kind of pasta does Kramer make a Jerry figurine from ? ?",
+                            "question":"What kind of pasta does Kramer make a Jerry figurine from ?",
                             "answer1":"Fusilli",
                             "answer2":"Penne",
                             "answer3":"Tortellini",
@@ -165,6 +168,9 @@
                             "answer4":"comedian",
                             "correct": "3",
                             "correctText":"No One Really Knows",
+                            "image":"assets/images/dancin.gif"
+                            },
+                            q11={
                             "image":"assets/images/all.gif"
                             }
                         ]
@@ -172,27 +178,29 @@
 
         var correctAnswers = 0,
             incorrectAnswers = 0,
-            time = 50,
-            timeBetween = 3,
+            unanswered = 0,
+            time = 30,
+            timeBetween = 5,
             interval,
             intervalBetween,
-            i = 8;
+            i = 0;
 
       
 
 // display question by grabbing ID from HTML
-function setQuestions (){
-        // $(".test").empty();
-        // $("#prompt").append(j);    
-        $("#question").text(questions[i].question);
-        $("#a1").text(questions[i].answer1);
-        $("#a2").text(questions[i].answer2);
-        $("#a3").text(questions[i].answer3);
-        $("#a4").text(questions[i].answer4);
-        }
+// function setQuestions (){
+//         // $(".test").empty();
+//         // $("#prompt").append(j);    
+//         $("#question").text(questions[i].question);
+//         $("#a1").text(questions[i].answer1);
+//         $("#a2").text(questions[i].answer2);
+//         $("#a3").text(questions[i].answer3);
+//         $("#a4").text(questions[i].answer4);
+//         }
 function setNextQuestions(){
         $("#prompt").empty();
         $("#prompt").prepend(j);
+        $("#timer").text("Time Remaining: " + time);
         $("#question").text(questions[i].question);
         $("#a1").text(questions[i].answer1);
         $("#a2").text(questions[i].answer2);
@@ -210,14 +218,10 @@ function setNextQuestions(){
             if (time === 0) {
                 stop();
                 j = $("#qElements").detach()
-                $("#prompt").html("<h2> Time's Out..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src='assets/images/no_soup.gif' style='width:450px;height:300px;'/>")
+                $("#prompt").html("<h2> Time's Out..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src='assets/images/no_soup.gif' style='width:300px;height:200px;'/>")
                 $("#timer").text("Time Remaining: ");
-                incorrectAnswers++
+                unanswered++
                 intervalTime();
-                if (i === 9){
-                    finalQuestion()
-                    endGame()
-                } 
             }
             
         }
@@ -227,30 +231,37 @@ function setNextQuestions(){
 
 //set up the timer between questions
 function intervalTime(){
+                
+            $("#timer").text("");
             intervalBetween = setInterval(decrementBetween, 1000);
             }
             function decrementBetween() {
             timeBetween--;
             
-            if (timeBetween === 0) {
+            if (timeBetween === 0 && i < 9) {
                 stopBetween();
                 i++
-                time = 50;
-                timeBetween = 3;
+                time = 30;
+                timeBetween = 5;
                 setNextQuestions();
                 questionTime()
-                console.log(i)
-            }
+
+                console.log(i) 
+            } else if (timeBetween === 0 && i === 9){
+                    $("#timer").text("");
+                    finalQuestion()
+                    endGame()
+                }
             
-        }
+            }
         function stopBetween() {
             clearInterval(intervalBetween);
         }
-
+        
         function finalQuestion() {
                 if ($(this).attr("value") === questions[i].correct){
                 correctAnswers++}
-            $("#prompt").html("<h2> Game Over..!</h2><p>Correct Answers:" + correctAnswers +"</p><p>Incorrect Answers:" + incorrectAnswers +"</p><img src= " + questions[i].image + " style='width:450px;height:300px;'/><br>");
+            $("#prompt").html("<h2> Game Over..! Here's how you did...!</h2><p class='results'>Correct Answers: " + correctAnswers +" | Incorrect Answers: " + incorrectAnswers +" | Unaswered: " + unanswered +"</p><img src= " + questions[i+1].image + " style='width:300px;height:200px;'/><br>");
             stopBetween()
             stop()
         }
@@ -266,13 +277,13 @@ function intervalTime(){
 
         function endGame(){
                 var endButton = $("<button>");
-                endButton.addClass("start");
+                endButton.addClass("end");
                 endButton.text("Wanna Play Again..?");
                 $("#prompt").append(endButton);
-            $(".start").on("click", function(){
+            $(".end").on("click", function(){
                 correctAnswers = 0,
                 incorrectAnswers = 0,
-                i = 8;
+                i = 0;
                 setNextQuestions()
                 questionTime()
         })
@@ -285,27 +296,21 @@ function intervalTime(){
         $(".response").on("click", function(){
             j = $("#qElements").detach()
             if ($(this).attr("value") === questions[i].correct){
-                $("#prompt").html("<p> Correct..!</p><img src= " + questions[i].image + " style='width:450px;height:300px;'/>")
+                $("#prompt").html("<h2> Correct..!</h2><p> Nice job...</p><img src= " + questions[i].image + " style='width:300px;height:200px;'/>")
                 stop();
                 correctAnswers++
                 $("#timer").text("Time Remaining: ");
                 intervalTime()
-                if (i === 9){
-                    finalQuestion()
-                    endGame()
-                } 
+                 
             }
  
             else {
-                $("#prompt").html("<h2> No Soup for you..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src='assets/images/no_soup.gif' style='width:450px;height:300px;'/>")
+                $("#prompt").html("<h2> No Soup for you..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src='assets/images/no_soup.gif' style='width:300px;height:200px;'/>")
                 stop();
                 incorrectAnswers++
                 $("#timer").text("Time Remaining: ");
                 intervalTime();
-                if (i === 9){
-                    finalQuestion()
-                    endGame()
-                } 
+                
             }
            
             });
