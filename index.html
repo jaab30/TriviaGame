@@ -40,10 +40,10 @@
                     <ol id="qElements">
                         <h2 id="question"></h2>
                         
-                        <button id="a1" class="button" value=1></button><br>
-                        <button id="a2" class="button" value=2></button><br>
-                        <button id="a3" class="button" value=3></button><br>
-                        <button id="a4" class="button" value=4></button>
+                        <button id="a1" class="response" value=1></button><br>
+                        <button id="a2" class="response" value=2></button><br>
+                        <button id="a3" class="response" value=3></button><br>
+                        <button id="a4" class="response" value=4></button>
 
                     </ol>
                     
@@ -172,20 +172,13 @@
 
         var correctAnswers = 0,
             incorrectAnswers = 0,
-            time = 10,
+            time = 50,
             timeBetween = 3,
             interval,
             intervalBetween,
-            i = 0;
+            i = 8;
 
-        // j = $("#qElements").detach() 
-        // $("#prompt").html("<button id='start'>Start Game</button>");
-        
-        // $("#start").on("click", function(){
-        //     setQuestions()
-            // questionTime()
-            // alert(setNextQuestions())
-        // })
+      
 
 // display question by grabbing ID from HTML
 function setQuestions (){
@@ -217,10 +210,14 @@ function setNextQuestions(){
             if (time === 0) {
                 stop();
                 j = $("#qElements").detach()
-                $("#prompt").html("<h2> Time's Out..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src= " + questions[i].image + " />")
+                $("#prompt").html("<h2> Time's Out..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src='assets/images/no_soup.gif' style='width:450px;height:300px;'/>")
                 $("#timer").text("Time Remaining: ");
                 incorrectAnswers++
                 intervalTime();
+                if (i === 9){
+                    finalQuestion()
+                    endGame()
+                } 
             }
             
         }
@@ -238,7 +235,7 @@ function intervalTime(){
             if (timeBetween === 0) {
                 stopBetween();
                 i++
-                time = 10;
+                time = 50;
                 timeBetween = 3;
                 setNextQuestions();
                 questionTime()
@@ -251,15 +248,41 @@ function intervalTime(){
         }
 
         function finalQuestion() {
-            if ($(this).attr("value") === questions[i].correct){
+                if ($(this).attr("value") === questions[i].correct){
                 correctAnswers++}
-            $("#prompt").html("<h2> Game Over..!</h2><h2>Correct Answers:" + correctAnswers +"</h2><h2>Incorrect Answers:" + incorrectAnswers +"</h2><img src= " + questions[i].image + " style='width:450px;height:300px;'/>");
-                stopBetween()
-                stop()
+            $("#prompt").html("<h2> Game Over..!</h2><p>Correct Answers:" + correctAnswers +"</p><p>Incorrect Answers:" + incorrectAnswers +"</p><img src= " + questions[i].image + " style='width:450px;height:300px;'/><br>");
+            stopBetween()
+            stop()
+        }
+        function startGame(){
+            j = $("#qElements").detach() 
+            $("#prompt").html("<button class='start'>Start Game</button>");
+            
+            $(".start").on("click", function(){
+            setNextQuestions()
+            questionTime()
+        })
         }
 
+        function endGame(){
+                var endButton = $("<button>");
+                endButton.addClass("start");
+                endButton.text("Wanna Play Again..?");
+                $("#prompt").append(endButton);
+            $(".start").on("click", function(){
+                correctAnswers = 0,
+                incorrectAnswers = 0,
+                i = 8;
+                setNextQuestions()
+                questionTime()
+        })
+
+
+        }
+
+
 // on click, if user pick is equal than correct answer, write meassage and show pix
-        $(".button").on("click", function(){
+        $(".response").on("click", function(){
             j = $("#qElements").detach()
             if ($(this).attr("value") === questions[i].correct){
                 $("#prompt").html("<p> Correct..!</p><img src= " + questions[i].image + " style='width:450px;height:300px;'/>")
@@ -269,21 +292,27 @@ function intervalTime(){
                 intervalTime()
                 if (i === 9){
                     finalQuestion()
+                    endGame()
                 } 
             }
  
             else {
-                $("#prompt").html("<h2> No Soup for you..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src= " + questions[i].image + " style='width:450px;height:300px;'/>")
+                $("#prompt").html("<h2> No Soup for you..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src='assets/images/no_soup.gif' style='width:450px;height:300px;'/>")
                 stop();
                 incorrectAnswers++
                 $("#timer").text("Time Remaining: ");
                 intervalTime();
                 if (i === 9){
                     finalQuestion()
+                    endGame()
                 } 
             }
            
             });
+            startGame()
+
+
+})
 
 // on click, if user pick is not equal than correct answer, write meassage, write correct answer and show pix
 
@@ -296,11 +325,10 @@ function intervalTime(){
 
 
 // startGame()
-setQuestions ()
-questionTime()
+// setQuestions ()
+// questionTime()
 // intervalTime()
 
-})
    
     </script>
 
