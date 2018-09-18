@@ -28,8 +28,6 @@
     h2 {
         color: white;
         font-family: 'Oswald', sans-serif;
-        /* font-family: 'Vollkorn', serif; */
-        /* font-family: 'Mukta', sans-serif; */
         background: #03316e; 
         margin: 10px;   
         border: solid 1px white;
@@ -43,14 +41,11 @@
         height: 20px;
         color: white;
         padding-top: 10px;
-        /* box-shadow: 2px 10px rgba(0, 0, 0, 0.9); */
-
     }
 
     .mainContainer {
-        /* background-color: black; */
-        background-image: url("../images/seinfeldbackground.jpg");
-        /* width: 12000px; */
+        background-color: rgba(4, 41, 111, 0.9);
+        background-image: url("../images/background_high3.jpg");
         height: 425px;
     }
 
@@ -61,7 +56,6 @@
         margin: 0 auto;
         border: solid 1px white;
         box-shadow: 1px 2px rgba(0, 0, 0, 0.5);
-
     }
 
     button{
@@ -80,9 +74,7 @@
         font-weight: bold;
         border-top: solid 2px rgba(252,215,32);
         border-bottom: solid 2px rgba(252,215,32);
-        /* border-radius: 45%; */
         width: 300px;
-
     }
     button:hover{
         background:rgba(252,215,32);
@@ -118,7 +110,6 @@
         font-size:1em;
         width: 250px;
         height:25px;
-
     }
 
     p {
@@ -134,8 +125,6 @@
         font-size: 1.2em;
         margin: 0;
         margin-bottom: 5px;
-        /* background-color:red; */
-
     }
 
     img {
@@ -145,6 +134,78 @@
     .logo {
         border: none;
     }
+    img {
+        width: 300px;
+        height: 200px;
+    }
 
 
-   
+
+    @media screen and (min-width: 381px) and (max-width: 690px) {
+
+        .mainContainer {
+            height: 425px;
+        }
+    
+        .insideContainer{
+            width: 100%;
+            height: auto;
+            padding: 20px;
+            /* margin: 0 auto;
+            border: solid 1px white;
+            box-shadow: 1px 2px rgba(0, 0, 0, 0.5); */
+        }
+        button{
+           
+            width: 300px;
+            height: 40px;
+        }
+
+
+    }
+
+    @media screen and (max-width: 380px) {
+
+        h2 {
+            font-size: 1em;
+        }
+
+        .mainContainer {
+            width: 100%;
+            height: auto;
+            padding: 20px;
+        }
+    
+        .insideContainer{
+            width: 100%;
+            height: auto;
+            padding: 20px;
+        }
+
+
+        button{
+            width: 100%;
+            height: auto;
+            font-size:1em;
+            
+        }
+
+        .end {
+            font-size:0.7em;
+            width: 100%;
+            height:auto;
+        }
+
+        img {
+            width: 100%;
+            height: 200px;
+
+        }
+
+        p {
+            font-size: 0.8em;
+        }
+
+
+    }
+    

@@ -33,9 +33,9 @@
         
         <div class="row">
             
-            <div class="col-sm-2">
-            </div>
-            <div class="col-sm-8 mainContainer">
+            <!-- <div class="col-sm-2">
+            </div> -->
+            <div class="col-sm-12 mainContainer">
                 <div class="row">
                             <div id="timer" class="col-sm-12"></div>
                 </div>
@@ -53,8 +53,8 @@
                 
                 </div>
             </div>
-            <div class="col-sm-2">
-            </div>
+            <!-- <div class="col-sm-2">
+            </div> -->
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -93,11 +93,11 @@
                           q3={
                             "question":"What causes George's fiancé Susan to die ?",
                             "answer1":"Suicide",
-                            "answer2":"Cheap Wedding Invitations",
+                            "answer2":"Wedding Invitations",
                             "answer3":"Allergic reaction",
                             "answer4":"Nobody knows",
                             "correct": "2",
-                            "correctText":"Cheap Wedding Invitations",
+                            "correctText":"Wedding Invitations",
                             "image":"assets/images/jerry_clap.gif"
                             } , 
                           q4={
@@ -175,7 +175,7 @@
                             }
                         ]
 
-
+        // declare my variables
         var correctAnswers = 0,
             incorrectAnswers = 0,
             unanswered = 0,
@@ -185,22 +185,15 @@
             intervalBetween,
             i = 0;
 
-      
-
-// display question by grabbing ID from HTML
-// function setQuestions (){
-//         // $(".test").empty();
-//         // $("#prompt").append(j);    
-//         $("#question").text(questions[i].question);
-//         $("#a1").text(questions[i].answer1);
-//         $("#a2").text(questions[i].answer2);
-//         $("#a3").text(questions[i].answer3);
-//         $("#a4").text(questions[i].answer4);
-//         }
+        // set functions....
+        // Function to set each question
 function setNextQuestions(){
+        // empty the HTML element to append/prepend the question
         $("#prompt").empty();
         $("#prompt").prepend(j);
+        //show timer 
         $("#timer").text("Time Remaining: " + time);
+        // pull questions from array and display on HTML (#prompt)
         $("#question").text(questions[i].question);
         $("#a1").text(questions[i].answer1);
         $("#a2").text(questions[i].answer2);
@@ -209,21 +202,29 @@ function setNextQuestions(){
         }
 //set up the timer
         function questionTime(){
+            // interval by seconds
             interval = setInterval(decrement, 1000);
             }
+            // function to make time count down
             function decrement() {
+            // by one second at a time
             time--;
+            //display time on YTML element
             $("#timer").text("Time Remaining: " + time);
-
+            // when timer hits 0
             if (time === 0) {
+                //stop timer
                 stop();
+                // detach HTML element whe the questions are
                 j = $("#qElements").detach()
-                $("#prompt").html("<h2> Time's Out..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src='assets/images/no_soup.gif' style='width:300px;height:200px;'/>")
+                // insert info on HTML element
+                $("#prompt").html("<h2> Time's Out..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src='assets/images/no_soup.gif'/>")
                 $("#timer").text("Time Remaining: ");
+                // increaes unanswered count
                 unanswered++
+                // call interval time fucntion
                 intervalTime();
             }
-            
         }
         function stop() {
             clearInterval(interval);
@@ -231,108 +232,98 @@ function setNextQuestions(){
 
 //set up the timer between questions
 function intervalTime(){
-                
+    //clear timer text on display to make it dissapear
             $("#timer").text("");
+            // interval by seconds
             intervalBetween = setInterval(decrementBetween, 1000);
             }
+            // function to make time count down
             function decrementBetween() {
+            // by one second at a time
             timeBetween--;
-            
+
+            // if it's not the last question
             if (timeBetween === 0 && i < 9) {
+            //stop timer
                 stopBetween();
+           // increase counter and reset time values
                 i++
                 time = 30;
                 timeBetween = 5;
+            // call functions for next question
                 setNextQuestions();
+            // call function for timer
                 questionTime()
-
-                console.log(i) 
-            } else if (timeBetween === 0 && i === 9){
-                    $("#timer").text("");
+            // if it's the last question
+            } else if (timeBetween === 0){
+                // call functions for final question
                     finalQuestion()
+                // call function to end game
                     endGame()
                 }
-            
             }
+
         function stopBetween() {
             clearInterval(intervalBetween);
         }
-        
+        // funntion for final question
         function finalQuestion() {
-                if ($(this).attr("value") === questions[i].correct){
-                correctAnswers++}
-            $("#prompt").html("<h2> Game Over..! Here's how you did...!</h2><p class='results'>Correct Answers: " + correctAnswers +" | Incorrect Answers: " + incorrectAnswers +" | Unaswered: " + unanswered +"</p><img src= " + questions[i+1].image + " style='width:300px;height:200px;'/><br>");
+            $("#prompt").html("<h2> Game Over..! Here's how you did...!</h2><p class='results'>Correct Answers: " + correctAnswers +" | Incorrect Answers: " + incorrectAnswers +" | Unaswered: " + unanswered +"</p><img src= " + questions[i+1].image + "><br>");
             stopBetween()
-            stop()
         }
+        // function to start the game
         function startGame(){
             j = $("#qElements").detach() 
             $("#prompt").html("<button class='start'>Start Game</button>");
-            
             $(".start").on("click", function(){
             setNextQuestions()
             questionTime()
         })
         }
-
+        // function to end game
         function endGame(){
-                var endButton = $("<button>");
-                endButton.addClass("end");
-                endButton.text("Wanna Play Again..?");
-                $("#prompt").append(endButton);
+            var endButton = $("<button>");
+            endButton.addClass("end");
+            endButton.text("Wanna Play Again..?");
+            $("#prompt").append(endButton);
             $(".end").on("click", function(){
-                correctAnswers = 0,
-                incorrectAnswers = 0,
-                i = 0;
-                setNextQuestions()
-                questionTime()
-        })
-
-
+                    correctAnswers = 0,
+                    incorrectAnswers = 0,
+                    i = 0;
+                    timeBetween = 5;
+                    setNextQuestions()
+                    questionTime()
+            })
         }
+        
 
 
-// on click, if user pick is equal than correct answer, write meassage and show pix
+        // on click, if user pick is equal than correct answer, write meassage and show pix
         $(".response").on("click", function(){
             j = $("#qElements").detach()
             if ($(this).attr("value") === questions[i].correct){
-                $("#prompt").html("<h2> Correct..!</h2><p> Nice job...</p><img src= " + questions[i].image + " style='width:300px;height:200px;'/>")
+                $("#prompt").html("<h2> Correct..!</h2><p> Nice job...</p><img src= " + questions[i].image + ">")
                 stop();
-                correctAnswers++
                 $("#timer").text("Time Remaining: ");
+                correctAnswers++
                 intervalTime()
-                 
             }
- 
+        // on click, if user pick is NOT the correct answer, write meassage and show pix
             else {
-                $("#prompt").html("<h2> No Soup for you..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src='assets/images/no_soup.gif' style='width:300px;height:200px;'/>")
+                $("#prompt").html("<h2> No Soup for you..!</h2><p>The correct answer is: " + questions[i].correctText + "</p><img src='assets/images/no_soup.gif'/>")
                 stop();
                 incorrectAnswers++
                 $("#timer").text("Time Remaining: ");
                 intervalTime();
-                
             }
-           
             });
-            startGame()
 
+            // call function to start the game
+
+            startGame()
 
 })
 
-// on click, if user pick is not equal than correct answer, write meassage, write correct answer and show pix
-
-// if timer rusn out, write meassage, write correct answer and show pix
-
-//at the end, show results , show button to restart.
-
-//when restart at th end, go back to question 1 without refresh.
-
-
-
-// startGame()
-// setQuestions ()
-// questionTime()
-// intervalTime()
 
    
     </script>
