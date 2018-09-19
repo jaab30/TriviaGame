@@ -24,7 +24,7 @@
     <header class="container-fluid">
         <div class="row">
             <div class="col-sm-12 align-items-center">
-                    <h1> Seinfeld Trivial Game</h1>
+                    <h1> Seinfeld Trivia Game</h1>
                     <img class = "logo" src="assets/images/logo_300.png" alt="Seinfeld Logo" class="logo">
             </div>
         </div>
@@ -183,7 +183,9 @@
             timeBetween = 5,
             interval,
             intervalBetween,
-            i = 0;
+            i = 9,
+            intro = new Audio("assets/sounds/seinfeld.mp3"),
+            end = new Audio("assets/sounds/funky_sound.mp3");
 
         // set functions....
         // Function to set each question
@@ -278,6 +280,7 @@ function intervalTime(){
             $(".start").on("click", function(){
             setNextQuestions()
             questionTime()
+            intro.play();
         })
         }
         // function to end game
@@ -293,7 +296,9 @@ function intervalTime(){
                     timeBetween = 5;
                     setNextQuestions()
                     questionTime()
+                   
             })
+            end.play();
         }
         
 
