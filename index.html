@@ -183,8 +183,8 @@
             timeBetween = 5,
             interval,
             intervalBetween,
-            i = 9,
-            intro = new Audio("assets/sounds/seinfeld.mp3"),
+            i = 0,
+            intro = new Audio("assets/sounds/seinfeldloopfinal.mp3"),
             end = new Audio("assets/sounds/funky_sound.mp3");
 
         // set functions....
@@ -280,7 +280,9 @@ function intervalTime(){
             $(".start").on("click", function(){
             setNextQuestions()
             questionTime()
+            //play sound
             intro.play();
+            intro.loop=true;
         })
         }
         // function to end game
@@ -296,9 +298,14 @@ function intervalTime(){
                     timeBetween = 5;
                     setNextQuestions()
                     questionTime()
+                    //play sound
+                    intro.play();
+                    intro.loop=true;
                    
             })
+            //play sound
             end.play();
+            intro.pause();
         }
         
 
