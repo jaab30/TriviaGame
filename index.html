@@ -131,7 +131,7 @@
                             "image":"assets/images/marathon.gif"
                             },
                           q7={
-                            "question":"What does Elaine buy allot of for Mr Pitt but doesn't get the right kind of it ?",
+                            "question":"What does Elaine buy a lot of for Mr Pitt but doesn't get the right kind of it ?",
                             "answer1":"Coffee",
                             "answer2":"Hats",
                             "answer3":"Juice",
@@ -184,7 +184,6 @@
             interval,
             intervalBetween,
             i = 0,
-            intro = new Audio("assets/sounds/seinfeldloopfinal.mp3"),
             end = new Audio("assets/sounds/funky_sound.mp3");
 
         // set functions....
@@ -281,8 +280,7 @@ function intervalTime(){
             setNextQuestions()
             questionTime()
             //play sound
-            intro.play();
-            intro.loop=true;
+            end.play();
         })
         }
         // function to end game
@@ -299,13 +297,10 @@ function intervalTime(){
                     setNextQuestions()
                     questionTime()
                     //play sound
-                    intro.play();
-                    intro.loop=true;
-                   
+                    end.play();
             })
             //play sound
             end.play();
-            intro.pause();
         }
         
 
